@@ -6,21 +6,21 @@ interface JwtPayload {
     _id: string
 }
 
-export const auth = async (req: Request, res: Response, next: NextFunction) => {
+export const unauth = async (req: Request, res: Response, next: NextFunction) => {
     try{
         const cookie = req.cookies['jwt'];
         
         const { _id } = jwt.verify(cookie, CONST.JWT_SECRET_KEY || "secret") as JwtPayload;
 
         if(!_id) {
-            return res.status(401).json({
-                message: "Unauthorized"
-            });
+            return next()
         }   
 
-        return next()
+        return res.status(401).json({
+            message: "Please logout first"
+        });
 
     } catch(err){
-        return res.status(401).send({message: "Unauthorized"});
+        return res.status(401).send({message: "Server Error"});
     }
 }
