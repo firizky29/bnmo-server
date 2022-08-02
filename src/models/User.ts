@@ -19,7 +19,7 @@ export class User {
     @Column({ default: false })
     is_admin: boolean
 
-    @Column({ nullable: false })
+    @Column("longtext", { nullable: false })
     ktp_image: string
 
     @Column({

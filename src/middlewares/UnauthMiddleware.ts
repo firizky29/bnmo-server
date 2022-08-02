@@ -21,6 +21,6 @@ export const unauth = async (req: Request, res: Response, next: NextFunction) =>
         });
 
     } catch(err){
-        return res.status(401).send({message: "Server Error"});
+        return next();
     }
 }

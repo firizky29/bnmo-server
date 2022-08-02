@@ -22,8 +22,8 @@ class AuthController {
             let { name, username, password, ktp } = req.body;
             const user = await this.userRepository.findOne({ where: { username } });
             if (user) {
-                return res.status(401).json({
-                    message: "Username already exists"
+                return res.status(404).json({
+                    username: "Username already exists" 
                 });
             }
 
@@ -39,7 +39,7 @@ class AuthController {
 
             return res.send({ message: "Registration Success" });
         } catch (err) {
-            return res.status(500).send({ message: "Internal Server Error" })
+            return res.status(500).send({ message: "Internal Server Error" , err})
         }
     }
 
@@ -49,19 +49,19 @@ class AuthController {
             const user = await this.userRepository.findOne({ where: { username } });
             if (!user) {
                 return res.status(401).json({
-                    message: "Invalid username or password"
+                    credential: "Invalid username or password"
                 });
             }
 
             if (!await bcrypt.compare(password, user.password)) {
                 return res.status(401).json({
-                    message: "Invalid username or password"
+                    credential: "Invalid username or password"
                 });
             }
 
             if (user.verification_status !== "verified") {
                 return res.status(401).json({
-                    message: "Please wait until your account is verified"
+                    credential: "Please wait until your account is verified"
                 });
             }
 
@@ -90,7 +90,10 @@ class AuthController {
                 });
             }
             try {
-                const user = await this.userRepository.findOne({ where: { id: _id } });
+                const user = await this.userRepository.findOne({ 
+                    select: { id: true, name: true, username: true, is_admin: true },
+                    where: { id: _id } 
+                });
                 return res.send(user);
             } catch (err) {
                 return res.status(500).send({ message: "Internal Server Error" })
