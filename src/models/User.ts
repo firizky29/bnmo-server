@@ -29,6 +29,7 @@ export class User {
         default: "pending"
     })
     verification_status: string
+    
 
     @Column({ nullable: false, type: "float", default: 0.0 })
     balance: number
