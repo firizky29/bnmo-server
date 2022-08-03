@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, AfterInsert } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, AfterInsert, UpdateDateColumn } from "typeorm"
 import { Transaction } from "./Transaction"
 
 @Entity()
@@ -38,5 +38,7 @@ export class User {
 
     @OneToMany(() => Transaction, (transaction) => transaction.debitor, { cascade: true })
     debit: Transaction[]
-
+    
+    @UpdateDateColumn()
+    updated_at: Date;
 }

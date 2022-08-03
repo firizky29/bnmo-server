@@ -30,7 +30,10 @@ class HistoryController extends BaseController {
             const history = await this.transactionRepository.find({
                 ...filter,
                 skip: offset,
-                take: limit
+                take: limit,
+                order: {
+                    created_at: "DESC"
+                }
             });
 
             return res.status(200).json({
@@ -65,7 +68,10 @@ class HistoryController extends BaseController {
             const history = await this.transactionRepository.find({
                 ...filter,
                 skip: offset,
-                take: limit
+                take: limit,
+                order: {
+                    created_at: "DESC"
+                }
             });
 
             return res.status(200).json({
@@ -102,7 +108,10 @@ class HistoryController extends BaseController {
             const history = await this.transactionRepository.find({
                 ...filter,
                 skip: offset,
-                take: limit
+                take: limit,
+                order: {
+                    created_at: "DESC"
+                }
             });
 
             return res.status(200).json({
@@ -110,7 +119,7 @@ class HistoryController extends BaseController {
                 page: page,
                 data: history,
                 limit: limit,
-                last_page: Math.ceil(total / limit)
+                last_page: Math.ceil(total / limit),
             })
         } catch (err) {
             return res.status(500).send({ message: "Internal Server Error" })

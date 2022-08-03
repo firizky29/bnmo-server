@@ -38,7 +38,7 @@ class App {
     private setRoutes() {
         this.app.use("/api/v1/auth", AuthRoutes);
         this.app.use("/api/v1/users", UserRoutes);
-        this.app.use("/api/v1/request", RequestRoutes);
+        this.app.use("/api/v1/transactions", RequestRoutes);
         this.app.use("/api/v1/transfer", TransferRoutes);
         this.app.use("/api/v1/history", HistoryRoutes);
         // this.app.use("/api", new Routes(this.app).routes);

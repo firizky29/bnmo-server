@@ -36,11 +36,11 @@ export class Transaction {
     async updateBalance() {
         if (this.transaction_status === "accepted") {
             if (!this.creditor.is_admin) {
-                this.creditor.balance += this.amount
+                this.creditor.balance -= this.amount
                 AppDataSource.getRepository(User).save(this.creditor)
             }
             if (!this.debitor.is_admin) {
-                this.debitor.balance -= this.amount
+                this.debitor.balance += this.amount
                 AppDataSource.getRepository(User).save(this.debitor)
             }
         }
@@ -50,11 +50,11 @@ export class Transaction {
     async updateBalanceAfterUpdate() {
         if (this.transaction_status === "accepted") {
             if (!this.creditor.is_admin) {
-                this.creditor.balance += this.amount
+                this.creditor.balance -= this.amount
                 AppDataSource.getRepository(User).save(this.creditor)
             }
             if (!this.debitor.is_admin) {
-                this.debitor.balance -= this.amount
+                this.debitor.balance += this.amount
                 AppDataSource.getRepository(User).save(this.debitor)
             }
         }
